@@ -39,4 +39,7 @@ dependencies {
     compile('com.github.afollestad.material-dialogs:commons:0.8.5.7@aar') {
         transitive = true
     }
+
+    //facebook integration
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 }

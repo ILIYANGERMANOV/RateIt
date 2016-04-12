@@ -9,7 +9,11 @@
     </style>
 
     <style name="AppTheme" parent="AppThemeBase">
-        <!-- Customize style for different versions and screens here. -->
+        <!-- Customize theme for different versions and screens here. -->
+
+    </style>
+
+    <style name="MyToolbarTheme" parent="AppThemeBase">
 
     </style>
 

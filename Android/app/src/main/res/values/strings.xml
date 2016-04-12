@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">RateIt</string>
+
+    <!-- facebook integration -->
+    <string name="facebook_app_id">1994140264145002</string>
+    <!-- facebook integration -->
+
 </resources>
