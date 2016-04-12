@@ -25,4 +25,10 @@ public class LoginActivity extends AppCompatActivity {
             mFacebookIntegrationHelper.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mFacebookIntegrationHelper.stopTracking();
+    }
 }
