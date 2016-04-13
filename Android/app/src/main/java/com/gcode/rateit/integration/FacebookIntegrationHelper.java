@@ -13,8 +13,6 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.gcode.rateit.R;
 import com.gcode.rateit.extras.MyDebugger;
-import com.gcode.rateit.extras.utils.SharedPrefUtils;
-import com.gcode.rateit.extras.values.Keys;
 
 public class FacebookIntegrationHelper implements FacebookCallback<LoginResult> {
     LoginButton mFBLoginButton;
@@ -27,29 +25,34 @@ public class FacebookIntegrationHelper implements FacebookCallback<LoginResult> 
         mFBLoginButton = (LoginButton) activity.findViewById(R.id.facebook_login_button);
     }
 
+    @SuppressWarnings("unused")
     public boolean isActive() {
         return mIsActive;
     }
 
     public void init() {
         mCallbackManager = CallbackManager.Factory.create();
-        mFBLoginButton.setReadPermissions("user_birthday");
+        mFBLoginButton.setReadPermissions("public_profile", "email", "user_likes", "user_location");
         mFBLoginButton.registerCallback(mCallbackManager, this);
         mAccessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-                SharedPrefUtils.saveToPreferences(Keys.PREF_FB_ACCESS_TOKEN, currentAccessToken.getToken());
+                //TODO: save fb access token
             }
         };
         mIsActive = true;
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        if (mIsActive) {
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     public void stopTracking() {
-        mAccessTokenTracker.stopTracking();
+        if (mIsActive) {
+            mAccessTokenTracker.stopTracking();
+        }
     }
 
     @Override
@@ -57,8 +60,7 @@ public class FacebookIntegrationHelper implements FacebookCallback<LoginResult> 
         AccessToken accessToken = loginResult.getAccessToken();
         MyDebugger.log("user_id", accessToken.getUserId());
         MyDebugger.log("Access_token", accessToken.getToken());
-        SharedPrefUtils.saveToPreferences(Keys.PREF_FB_USER_ID, accessToken.getUserId());
-        SharedPrefUtils.saveToPreferences(Keys.PREF_FB_ACCESS_TOKEN, accessToken.getToken());
+        //TODO: save fb access token and user_id
         Profile profile = Profile.getCurrentProfile();
         if (profile != null) {
             MyDebugger.log("first name", profile.getFirstName());

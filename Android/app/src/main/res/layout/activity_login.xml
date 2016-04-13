@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context="com.gcode.rateit.activities.LoginActivity">
+
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/facebook_login_button"
@@ -13,5 +15,12 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/google_plus_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
 
 </LinearLayout>
